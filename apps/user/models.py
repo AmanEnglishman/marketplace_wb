@@ -33,4 +33,4 @@ class User(MyUser):
     card_number = models.CharField(max_length=255, blank=False, null=True)
 
     def __str__(self):
-        return self.email
+        return f'{self.email} - {self.id}'

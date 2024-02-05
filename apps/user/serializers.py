@@ -1,9 +1,7 @@
+from django.contrib.auth.password_validation import validate_password
 from rest_framework import serializers
 from rest_framework.validators import UniqueValidator
-from django.contrib.auth.password_validation import validate_password
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer, AuthUser
-from rest_framework_simplejwt.tokens import Token
-
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from .models import User
 
 
@@ -32,16 +30,16 @@ class UserSerializer(serializers.ModelSerializer):
         required=True,
     )
     name = serializers.CharField(
-        required=True,
+        required=True
     )
     second_name = serializers.CharField(
-        required=True,
+        required=True
     )
     address = serializers.CharField(
-        required=True,
+        required=True
     )
     phone = serializers.CharField(
-        required=True,
+        required=True
     )
 
     class Meta:
@@ -49,16 +47,18 @@ class UserSerializer(serializers.ModelSerializer):
         fields = [
             'email',
             'name',
-            'second_name'
-            'address'
-            'phone'
-            'password'
-            'password2'
+            'second_name',
+            'address',
+            'phone',
+            'password',
+            'password2',
+
         ]
+        fields = "__all__"
 
     def validate(self, attrs):
         if attrs['password'] != attrs['password2']:
             raise serializers.ValidationError(
-                {'password': 'Password fields didn`t match '}
+                {'password': 'Password fields didn`t match'}
             )
         return attrs
